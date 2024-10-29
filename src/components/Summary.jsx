@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 function Summary({ assets }) {
   const [total, setTotal] = useState(0);
+  const [isCalculated, setIsCalculated] = useState(false);
 
   const sumAsset = () => {
     const {
@@ -26,6 +27,9 @@ function Summary({ assets }) {
     } else {
       setTotal(0);
     }
+
+    // Show the result once calculated
+    setIsCalculated(true);
   };
 
   return (
@@ -33,9 +37,11 @@ function Summary({ assets }) {
       <div onClick={sumAsset} className="container d-flex justify-content-end">
         <button id='calculate' type="button" className="btn btn-primary">যাকাত হিসাব করুন</button>
       </div>
-      <h1 id='noForoj'>
-        প্রদানকৃত তথ্য অনুযায়ী আপনাকে {total > 0 ? `${total} টাকা যাকাত দিতে হবে।` : 'আপনার উপর যাকাত ফরজ নয়।'}
-      </h1>
+      {isCalculated && (
+        <h1 id='noForoj'>
+          প্রদানকৃত তথ্য অনুযায়ী আপনাকে {total > 0 ? `${total} টাকা যাকাত দিতে হবে।` : 'আপনার উপর যাকাত ফরজ নয়।'}
+        </h1>
+      )}
     </div>
   );
 }
